@@ -1,0 +1,20 @@
+#publicly available docker image "python" on docker hub will be pulled
+
+FROM python
+
+#Expose Port 
+#EXPOSE 1883
+
+#creating directory helloworld in container (linux machine)
+
+RUN pip install paho-mqtt
+
+RUN mkdir c:\home\mqtt
+
+#copying helloworld.py from local directory to container's helloworld folder
+
+COPY mqttclient.py /home/mqtt/mqttclient.py
+
+#running helloworld.py in container
+
+CMD python /home/mqtt/mqttclient.py
