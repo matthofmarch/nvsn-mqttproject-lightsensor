@@ -12,11 +12,11 @@ def on_message(client, userdata, message):
     print("message qos=",message.qos)
     print("message retain flag=",message.retain)
 
-def handle_message(message):
-    if on:
-         GPIO.output(8, GPIO.HIGH) # Turn off
-    else 
-         GPIO.output(8, GPIO.LOW) # Turn off
+#def handle_message(message):
+ #   if message:
+  #       GPIO.output(8, GPIO.HIGH) # Turn off
+   # else
+    #     GPIO.output(8, GPIO.LOW) # Turn off
 
 client = mqtt.Client(client_id="P1") #create new instance
 client.connect(broker_address) #connect to broker
