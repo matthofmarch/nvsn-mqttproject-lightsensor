@@ -8,7 +8,7 @@ GPIO.setup(8, GPIO.OUT, initial=GPIO.LOW) # Set pin 8 to be an output pin and se
 broker_address="52.157.91.193" 
 
 def on_message(client, userdata, message):
-    print("message received " ,json.parse(str(message.payload.decode("utf-8"))))
+    print("message received " ,(str(message.payload.decode("utf-8"))))
     print("message topic=",message.topic)
     print("message qos=",message.qos)
     print("message retain flag=",message.retain)
