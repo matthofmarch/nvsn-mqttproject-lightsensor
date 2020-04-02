@@ -13,23 +13,25 @@ def on_message(client, userdata, message):
     print("message topic=",message.topic)
     print("message qos=",message.qos)
     print("message retain flag=",message.retain)
-    handle_message(message)
 
 def handle_message(message):
-    print(json.loads(message.payload)["value"])
-    if json.loads(message.payload)["value"]:
-        print("LED TURN ON")
-        GPIO.output(8, GPIO.HIGH) # Turn off
-    else:
-	print("LED TURN OFF")
-        GPIO.output(8, GPIO.LOW) # Turn off
+    if message.topic == "sensors/mohammed/light1":
+        if json.loads(message.payload)["value"]:
+            print("LED1 TURN ON")
+            GPIO.output(8, GPIO.HIGH) # Turn off
+        else:
+            GPIO.output(8, GPIO.LOW) # Turn off 
+    elif message.topic == "sensors/mohammed/light2": 
+        if json.loads(message.payload)["value"]:
+            print("LED2 TURN ON")
+            GPIO.output(10, GPIO.HIGH) # Turn off
+        else:
+            GPIO.output(10, GPIO.LOW) # Turn off
 
 client = mqtt.Client(client_id="P1") #create new instance
 client.connect(broker_address) #connect to broker
 client.on_message=on_message
-client.publish("test","kevin from docker")#publish
-
-client.subscribe("sensors/mohammed/#")
+client.subscribe("sensor/mohammed/light1")
 client.loop_start()    #start the loop
 time.sleep(400)
  
