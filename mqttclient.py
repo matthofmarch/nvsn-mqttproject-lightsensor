@@ -8,22 +8,25 @@ GPIO.setup(8, GPIO.OUT, initial=GPIO.LOW) # Set pin 8 to be an output pin and se
 broker_address="52.157.91.193" 
 
 def on_message(client, userdata, message):
+    print("m: ", message)
     print("message received " ,(str(message.payload.decode("utf-8"))))
     print("message topic=",message.topic)
     print("message qos=",message.qos)
     print("message retain flag=",message.retain)
 
-#def handle_message(message):
- #   if message:
-  #       GPIO.output(8, GPIO.HIGH) # Turn off
-   # else
-    #     GPIO.output(8, GPIO.LOW) # Turn off
+def handle_message(message):
+    if json.loads(message.payload)["value"]:
+        print("LED TURN ON")
+        GPIO.output(8, GPIO.HIGH) # Turn off
+    else:
+        GPIO.output(8, GPIO.LOW) # Turn off
 
 client = mqtt.Client(client_id="P1") #create new instance
 client.connect(broker_address) #connect to broker
 client.on_message=on_message
 client.publish("test","kevin from docker")#publish
 print("Subscribing to topic","test")
-client.subscribe("test")
+client.subscribe("sensor/mohammed/light1")
 client.loop_start()    #start the loop
 time.sleep(400)
+ 
