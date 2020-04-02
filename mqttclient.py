@@ -15,13 +15,13 @@ def on_message(client, userdata, message):
     print("message retain flag=",message.retain)
 
 def handle_message(message):
-    if message.topic == "sensors/mohammed/light1":
+    if "sensors/mohammed/light1" in message.topic :
         if json.loads(message.payload)["value"]:
             print("LED1 TURN ON")
             GPIO.output(8, GPIO.HIGH) # Turn off
         else:
             GPIO.output(8, GPIO.LOW) # Turn off 
-    elif message.topic == "sensors/mohammed/light2": 
+    elif "sensors/mohammed/light2" in message.topic : 
         if json.loads(message.payload)["value"]:
             print("LED2 TURN ON")
             GPIO.output(10, GPIO.HIGH) # Turn off
